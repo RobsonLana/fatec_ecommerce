@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  php:
+    image: php:8.0.2-apache
+    build:
+      dockerfile: Dockerfile
+    container_name: php_apache
+    ports:
+      - 80:80
+    volumes:
+      - ./html:/var/www/html
+      - ./files:/var/www/html/files
+    environment:
+      MYSQL_HOST: mysql
+    networks:
+      - php_network
+
+  mysql:
+    image: mysql:8.0.34-debian
+    container_name: labdb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: labdb
+    networks:
+      - php_network
+
+volumes:
+  mysql_data:
+
+networks:
+  php_network:
+    driver: bridge
