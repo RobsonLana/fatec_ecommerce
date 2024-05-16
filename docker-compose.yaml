@@ -10,7 +10,6 @@ services:
       - 80:80
     volumes:
       - ./html:/var/www/html
-      - ./files:/var/www/html/files
     environment:
       MYSQL_HOST: mysql
     networks:
