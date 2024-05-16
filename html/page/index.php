@@ -18,20 +18,34 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>E-Commerce</h1>
+        <div class="header">
+            <h1>E-Commerce</h1>
+            <p>Usuário</p>
+        </div>
         <div class="products_container">
-            <ul class="product_list">
             <?php
-                foreach($products as $product) {
+                if (count($products) > 0) {
+                    echo "<ul class=\"product_list\">";
 
-                    echo "<li class=\"product_card\">";
+                    foreach($products as $product) {
 
-                    echo "<img src=\"../files/pictures/" . $product['nome_arquivo'] . "\" alt=\"" . $product['nome_pro'] . "\">";
-                    echo "<p>" . $product['nome_pro'] . "<br>";
-                    echo $product['valor_unitario'] . "<br>";
-                    echo $product['nome'] . "</p>";
+                        echo "<li class=\"product_card\">";
 
-                    echo "</li>";
+                        echo "<img src=\"../files/pictures/" . $product['nome_arquivo'] . "\" alt=\"" . $product['nome_pro'] . "\">";
+                        echo "<p class=\"product_title\">" . $product['nome_pro'] . "</p>";
+                        echo "<p>" . number_to_brl($product['valor_unitario']) . "</p>";
+                        echo "<p>" . $product['nome'] . "</p>";
+
+                        echo "</li>";
+                    }
+
+                    echo "</ul>";
+                } else {
+            ?>
+            <div class="error">
+                <p>Estamos sem produtos que atendam a essa pesquisa...</p>
+            </div>
+            <?php
                 }
             ?>
             </ul>

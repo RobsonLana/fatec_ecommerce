@@ -16,4 +16,8 @@ function connect() {
 
     return $connection;
 }
+
+function number_to_brl($number) {
+    return "R$ " . preg_replace("/\./", ",", $number);
+}
 ?>

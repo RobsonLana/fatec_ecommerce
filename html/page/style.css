@@ -1,5 +1,24 @@
 html {
+	color: #FFFFFF;
+	background-color: #000000;
 	font-family: Arial, Georgia;
+}
+
+body {
+	margin: 0px;
+}
+
+div.header {
+	background-color: #CC0011;
+	padding: 8px;
+}
+
+div.header > * {
+	display: inline;
+}
+
+div.products_container {
+	margin: 12px;
 }
 
 ul.product_list {
@@ -8,9 +27,13 @@ ul.product_list {
 
 li.product_card {
 	margin: 10px;
+	padding: 4px;
+	background-color: #303030;
 	display: inline-block;
+	border-radius: 8px;
 }
 
-li.product_card img {
-	max-width: 100px;
+li.product_card > img {
+	max-width: 120px;
+	border-radius: 8px;
 }
