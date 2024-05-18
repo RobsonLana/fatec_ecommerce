@@ -7,10 +7,7 @@ function ordered_list($connection, $order = "valor_unitario", $asc = true) {
         . " from produto"
         . " left join imagem on imagem.codigo_prod = produto.codigo_prod"
         . " left join categoria on produto.id = categoria.id"
-        . " order by :order :asc");
-
-    $statement->bindParam(':order', $order);
-    $statement->bindParam(':asc', $asc);
+        . " order by $order $asc");
 
     $statement->execute();
 

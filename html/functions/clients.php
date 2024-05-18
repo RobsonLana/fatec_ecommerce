@@ -1,13 +1,9 @@
 <?php
-session_start();
+function list_clients($connection) {
+    $statement = $connection->prepare("select cpf_cnpj_cli, nome_cli from cliente order by nome_cli asc");
 
-function get_client_on_session($connection) {
-    if (!isset($_SESSION["client"])) {
-        $statement = $connection->prepare("select cpf_cnpj_cli from cliente");
+    $statement->execute();
 
-        $statement->execute();
-
-        $clients = $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
