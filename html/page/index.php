@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Página inicial</title>
+        <title>Página inicial - E-Commerce</title>
         <meta charset="UTF-8">
         <meta name="viewpoort" content="width=device-width, inital-scale=1.0">
 
@@ -55,6 +55,8 @@
 
                     foreach($products as $product) {
 
+                        $product_link = "./product_detail.php?product_id=" . $product['codigo_prod'];
+
                         echo "<li class=\"product_card\">";
 
                         echo "<img src=\"../files/pictures/" . $product['nome_arquivo'] . "\" alt=\"" . $product['nome_pro'] . "\">";
@@ -62,6 +64,11 @@
                         echo "<p class=\"product_price\">" . number_to_brl($product['valor_unitario']) . "</p>";
                         echo "<p>" . $product['nome'] . "</p>";
                         echo "<p class=\"product_description\">" . $product['descricao'] . "</p>";
+
+                        echo "<div class=\"buttons\">"
+                            . "<a style=\"float:left;\" href=\"" . $product_link . "\">Detalhes</a>"
+                            . "<a style=\"float:right;\" href=\"#\">🛒</a>"
+                            . "</div>";
 
                         echo "</li>";
                     }

@@ -12,15 +12,16 @@ body {
 	border-radius: 8px;
 }
 
-input, button, select {
+input, button, select, a {
 	color: #FFFFFF;
 	background-color: #303030;
 	border: 2px solid #AC0011;
 	padding: 8px 12px 8px 12px;
 	text-align: center;
+	text-decoration: none;
 }
 
-input:hover, button:hover, select:hover {
+input:hover, button:hover, select:hover, a:hover {
 	background-color: #000000;
 }
 
@@ -83,7 +84,7 @@ div.user_prompt > form > * {
 	margin: 8px;
 }
 
-div.products_container {
+div.products_container, div.product_container {
 	margin: 12px;
 }
 
@@ -99,8 +100,8 @@ li.product_card {
 	width: 20%;
 	min-width: 150px;
 	max-width: 170px;
-	min-height: 300px;
-	max-height: 340px;
+	min-height: 320px;
+	max-height: 380px;
 	background-color: #303030;
 	display: inline-block;
 }
@@ -129,4 +130,39 @@ li.product_card > p.product_title {
 
 li.product_card > p.product_price {
 	font-size: 1rem;
+}
+
+li.product_card > div.buttons, div.product_container > div.operation_card > div.buttons {
+	margin: 18px 0px 8px 0px;
+}
+
+div.product_container {
+	width: 97%;
+	background-color: #303030;
+	display: inline-block;
+}
+
+div.product_container > img {
+	max-width: 30%;
+	margin: 0px 12px 12px 0px;
+	float: left;
+}
+
+div.product_container > div.operation_card {
+	min-width: 20%;
+}
+
+div.product_container > div.product_details > h2 {
+	font-size: 3rem;
+	margin: 8px 0px 4px 0px;
+}
+
+div.product_container > div.product_details > p.product_price {
+	font-size: 1.4rem;
+}
+
+div.operation_card {
+	float: right;
+	border: 1px solid #606060;
+	padding: 8px;
 }
