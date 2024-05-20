@@ -54,23 +54,23 @@
                     echo "<ul class=\"product_list\">";
 
                     foreach($products as $product) {
-
                         $product_link = "./product_detail.php?product_id=" . $product['codigo_prod'];
+                        $display_price = number_to_brl($product['valor_unitario']);
+            ?>
 
-                        echo "<li class=\"product_card\">";
+            <li class="product_card">
+                <img src="../files/pictures/<?= $product['nome_arquivo']?>" alt="<?= $product['nome_pro']?>">
+                <p class="product_title"><?= $product['nome_pro']?></p>
+                <p class="product_price"><?= $display_price?></p>
+                <p><?= $product['nome']?></p>
+                <p class="product_description"><?= $product['descricao']?></p>
+                <div class="buttons">
+                    <a class="details" style="float:left;" href="<?= $product_link?>">Detalhes</a>
+                    <a class="cart" style="float:right;" href="#">🛒</a>
+                </div>
+            </li>
 
-                        echo "<img src=\"../files/pictures/" . $product['nome_arquivo'] . "\" alt=\"" . $product['nome_pro'] . "\">";
-                        echo "<p class=\"product_title\">" . $product['nome_pro'] . "</p>";
-                        echo "<p class=\"product_price\">" . number_to_brl($product['valor_unitario']) . "</p>";
-                        echo "<p>" . $product['nome'] . "</p>";
-                        echo "<p class=\"product_description\">" . $product['descricao'] . "</p>";
-
-                        echo "<div class=\"buttons\">"
-                            . "<a style=\"float:left;\" href=\"" . $product_link . "\">Detalhes</a>"
-                            . "<a style=\"float:right;\" href=\"#\">🛒</a>"
-                            . "</div>";
-
-                        echo "</li>";
+            <?php
                     }
 
                     echo "</ul>";

@@ -73,11 +73,12 @@
                     <p class="product_price"><?=$display_price?></p>
                     <p><?=$quantity?> em estoque</p>
 
-                    <?=number_selector($quantity, 'quantidade')?>
+                    <form method="POST" action="../cart/add_to_cart.php">
+                        <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                        <?=number_selector($quantity, 'quantidade')?>
 
-                    <div class="buttons">
-                        <a>Adicionar ao carrinho</a>
-                    </div>
+                        <button class="cart" type="submit">Adicionar ao carrinho</button>
+                    </form>
 
                 </div>
                 <div class="product_details">

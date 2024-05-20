@@ -21,6 +21,10 @@ input, button, select, a {
 	text-decoration: none;
 }
 
+button {
+	cursor: pointer;
+}
+
 input:hover, button:hover, select:hover, a:hover {
 	background-color: #000000;
 }
@@ -132,24 +136,40 @@ li.product_card > p.product_price {
 	font-size: 1rem;
 }
 
-li.product_card > div.buttons, div.product_container > div.operation_card > div.buttons {
+li.product_card > div.buttons,
+div.product_container > div.operation_card > div.buttons {
 	margin: 18px 0px 8px 0px;
 }
 
+li.product_card > div.buttons > a.cart,
+div.operation_card button.cart {
+	border-color: #11AC00;
+}
+
+li.product_card > div.buttons > a.cart:hover,
+div.operation_card button.cart:hover {
+	background-color: #116C00;
+}
+
 div.product_container {
-	width: 97%;
+	width: 96%;
 	background-color: #303030;
 	display: inline-block;
+	padding: 4px;
 }
 
 div.product_container > img {
 	max-width: 30%;
-	margin: 0px 12px 12px 0px;
+	margin: 0px 12px 0px 0px;
 	float: left;
 }
 
 div.product_container > div.operation_card {
 	min-width: 20%;
+	height: 100%;
+	float: right;
+	border: 1px solid #606060;
+	padding: 8px;
 }
 
 div.product_container > div.product_details > h2 {
@@ -159,10 +179,4 @@ div.product_container > div.product_details > h2 {
 
 div.product_container > div.product_details > p.product_price {
 	font-size: 1.4rem;
-}
-
-div.operation_card {
-	float: right;
-	border: 1px solid #606060;
-	padding: 8px;
 }
