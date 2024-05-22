@@ -12,7 +12,7 @@ body {
 	border-radius: 8px;
 }
 
-input, button, select, a:not(.image_link) {
+input, button, select, a:not(.image_link):not(.page_title) {
 	color: #FFFFFF;
 	background-color: #303030;
 	border: 2px solid #AC0011;
@@ -25,7 +25,7 @@ button {
 	cursor: pointer;
 }
 
-input:hover, button:hover, select:hover, a:not(.image_link):hover {
+input:hover, button:hover, select:hover, a:not(.image_link):not(.page_title):hover {
 	background-color: #000000;
 }
 
@@ -35,6 +35,11 @@ header, footer {
 	margin: 0px;
 	border-radius: 0px;
 	overflow: hidden;
+}
+
+header a.page_title {
+	text-decoration: none;
+	color: #FFFFFF;
 }
 
 header > div.left, footer > div.left {
@@ -69,6 +74,14 @@ footer {
 	width: 100%;
 }
 
+footer > div {
+	max-height: 5rem;
+}
+
+footer div.finish {
+	margin-top: 14px;
+}
+
 footer ul.products_cart {
 	padding: 0px;
 	margin: 0px;
@@ -96,6 +109,15 @@ footer ul.products_cart > li.product_block > select {
 	position: relative;
 	top : -25px;
 	left: 4px;
+}
+
+footer > div.right {
+	position: relative;
+	left: -2rem;
+}
+
+footer > div.right p {
+	text-align: right;
 }
 
 div.user_prompt {

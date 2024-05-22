@@ -40,21 +40,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header>
-            <div class="left">
-                <h1>E-Commerce</h1>
-                <p>Página inicial</p>
-            </div>
-            <div class="right">
-                <div>
-                    <p class="user_name"><b><?=$_SESSION['user_name']?></b></p>
-                    <p class="user_cpf_cnpj"><?=$_SESSION['user']?></p>
-                </div>
-                <form method="GET" action="./user_select.php">
-                    <button>Deslogar</button>
-                </form>
-            </div>
-        </header>
+        <?=header_bar('Página inicial')?>
         <div class="products_container">
             <?php
                 if (count($products) > 0) {

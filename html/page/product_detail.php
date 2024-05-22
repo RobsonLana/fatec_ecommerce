@@ -39,22 +39,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header>
-            <div class="left">
-                <a href="<?= $referer_url ?>">Voltar</a>
-                <h1>E-Commerce</h1>
-                <p>Detalhes do produto</p>
-            </div>
-            <div class="right">
-                <div>
-                    <p class="user_name"><b><?=$_SESSION['user_name']?></b></p>
-                    <p class="user_cpf_cnpj"><?=$_SESSION['user']?></p>
-                </div>
-                <form method="GET" action="./user_select.php">
-                    <button>Deslogar</button>
-                </form>
-            </div>
-        </header>
+        <?=header_bar($product['nome_pro'], $referer_url)?>
         <div class="product_container">
             <?php
                 if($product_not_found) {

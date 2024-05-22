@@ -14,7 +14,6 @@ function update_cart() {
     $_SESSION['cart']['subtotal'] = $subtotal;
 }
 
-// criar função para montar exibição do carrinho automaticamente
 function cart_bar() {
     $bar = '<footer>';
     $left_block = '<div class="left"><ul class="products_cart">';
@@ -32,9 +31,13 @@ function cart_bar() {
 
     $left_block = $left_block . '</ul></div>';
 
-    $right_block = '<div class="right"><p>Total: ' . $_SESSION['cart']['subtotal'] . '</p>';
+    $right_block = '<div class="right">'
+        . '<p>Total: <b>' . number_to_brl($_SESSION['cart']['subtotal']) . '</b></p>'
+        . '<p>Quantidade: <b>' . $_SESSION['cart']['count'] . '</b></p>'
+        . '<div class="finish">'
+        . '<a href="#">Finalizar pedido</a>'
+        . '</div></div>';
 
-    $right_block = '</div>';
 
     return $bar . $left_block . $right_block . '</footer>';
 }
