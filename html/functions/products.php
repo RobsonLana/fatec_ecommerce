@@ -10,7 +10,7 @@ function ordered_list($connection, $order = "valor_unitario", $asc = true) {
     global $product_joint_base_query;
 
     $asc = $asc ? 'asc' : 'desc';
-    $statement = $connection->prepare($product_joint_base_query . " order by $order $asc");
+    $statement = $connection->prepare($product_joint_base_query . " where quantidade > 0" . " order by $order $asc");
 
     $statement->execute();
 

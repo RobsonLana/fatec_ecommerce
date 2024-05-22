@@ -9,6 +9,7 @@
 
     include_once('../functions/functions.php');
     include_once('../functions/products.php');
+    include_once('../functions/cart.php');
 
     $referer_url = "./index.php";
 
@@ -73,10 +74,12 @@
                     <p class="product_price"><?=$display_price?></p>
                     <p><?=$quantity?> em estoque</p>
 
-                    <form method="POST" action="../cart/add_to_cart.php">
+                    <form method="POST" action="../functions/add_to_cart.php">
                         <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                        <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
+                        <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
+                        <input type="hidden" name="max_quantity" value="<?=$quantity?>">
                         <?=number_selector($quantity, 'quantidade')?>
-
                         <button class="cart" type="submit">Adicionar ao carrinho</button>
                     </form>
 
@@ -85,11 +88,16 @@
                     <h2><?=$product['nome_pro']?></h2>
                     <h3><?=$product['nome']?></h3>
                     <p class="product_price"><?=$display_price?></p>
-                    <p class="product_description"><?=$product['descricao']?></p>
+                    <p class="product_description"><?=switch_newline($product['descricao'])?></p>
                 </div>
             <?php
                 }
             ?>
         </div>
+        <?php
+            if ($_SESSION['cart']['count'] > 0) {
+                echo cart_bar();
+            }
+        ?>
     </body>
 </html>
