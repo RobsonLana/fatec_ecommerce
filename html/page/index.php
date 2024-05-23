@@ -3,6 +3,8 @@
 
     $user = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_STRING);
 
+    $search_term = filter_input(INPUT_GET, 'search_term', FILTER_SANITIZE_STRING);
+
     if ($user == "") {
         if (!isset($_SESSION['user'])) {
             header("location:./user_select.php");
@@ -26,7 +28,14 @@
 
     $connection = connect();
 
-    $products = ordered_list($connection, 'nome_pro', true);
+    $products = [];
+
+    if ($search_term != '') {
+        $products = search_product($connection, $search_term, 'nome_pro', true);
+    } else {
+        $products = ordered_list($connection, 'nome_pro', true);
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,8 +51,8 @@
     <body>
         <?=header_bar('Página inicial')?>
         <div class="search_bar">
-            <form method="GET" action="../functions/search_products">
-                <input type="text" placeholder="Pesquisar produto">
+            <form method="GET" action="index.php">
+                <input type="text" name="search_term" placeholder="Pesquisar produto">
                 <button type="submit">🔎</button>
             </form>
         </div>

@@ -28,4 +28,21 @@ function get_product_by_id($connection, $product_id) {
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function search_product($connection, $term, $order = "valor_unitario", $asc = true) {
+    global $product_joint_base_query;
+
+    $asc = $asc ? 'asc' : 'desc';
+
+    $statement = $connection->prepare(
+        $product_joint_base_query
+        . ' where produto.nome_pro like "%' . $term . '%"'
+        . ' or produto.descricao like "%' . $term . '%"'
+        . ' or categoria.nome like "%' . $term . '%"'
+    );
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
