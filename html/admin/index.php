@@ -41,12 +41,6 @@
     </head>
     <body>
         <?=header_bar('Página inicial')?>
-        <div class="search_bar">
-            <form method="GET" action="../functions/search_products">
-                <input type="text" placeholder="Pesquisar produto">
-                <button type="submit">🔎</button>
-            </form>
-        </div>
         <div class="products_container">
             <?php
                 if (count($products) > 0) {

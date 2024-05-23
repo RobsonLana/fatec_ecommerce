@@ -6,6 +6,7 @@ html {
 
 body {
 	margin: 0px;
+	margin-bottom: 130px;
 }
 
 * {
@@ -67,7 +68,28 @@ header p.user_cpf_cnpj {
 	font-size: 12px;
 }
 
+div.search_bar {
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 8px;
+	max-width: 400px;
+}
+
+div.search_bar > * {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 100%;
+}
+
+div.search_bar input[type="text"] {
+	width: 300px;
+}
+
 footer {
+	background-color: rgba(172, 0, 17, 0.8);
+	backdrop-filter: blur(4px) brightness(120%);
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -105,10 +127,17 @@ footer ul.products_cart > li.product_block > a.image_link > img {
 	object-fit: contain;
 }
 
-footer ul.products_cart > li.product_block > select {
+footer ul.products_cart > li.product_block button {
+	padding: 1px;
 	position: relative;
-	top : -25px;
-	left: 4px;
+	top : -72px;
+}
+
+footer ul.products_cart > li.product_block select {
+	padding: 3px;
+	position: relative;
+	top : -40px;
+	left: -2px;
 }
 
 footer > div.right {
@@ -182,24 +211,28 @@ li.product_card > img {
 	object-fit: contain;
 }
 
-li.product_card > p {
+li.product_card > div.product_details > p {
 	font-size: 0.8rem;
 	margin: 0px 0px 8px 0px;
 }
 
-li.product_card > p.product_title {
+li.product_card > div.product_details {
+	overflow: hidden;
+	display: block;
+	text-overflow: ellipsis;
+	max-height: 7.6rem;
+}
+
+li.product_card > div.product_details > p.product_title {
 	font-size: 1.2rem;
 }
 
-li.product_card > p.product_price {
+li.product_card > div.product_details > p.product_price {
 	font-size: 1rem;
 }
 
-li.product_card > p.product_description {
-	overflow: hidden;
+li.product_card > div.product_details > p.product_description {
 	height: 2.5rem;
-	display: block;
-	text-overflow: ellipsis;
 }
 
 li.product_card > div.buttons,

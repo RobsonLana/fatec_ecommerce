@@ -21,16 +21,19 @@
 
     $product = get_product_by_id($connection, $product_id);
 
+    $product_name = "Produto não encontrado";
+
     $product_not_found = count($product) == 0;
 
     if (!$product_not_found) {
         $product = $product[0];
+        $product_name = $product['nome_pro'];
     }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-    <title><?= $product_not_found ? "Produto não encontrado" : $product['nome_pro']?> - E-Commerce</title>
+    <title><?=$product_name?> - E-Commerce</title>
         <meta charset="UTF-8">
         <meta name="viewpoort" content="width=device-width, inital-scale=1.0">
 
@@ -39,7 +42,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <?=header_bar($product['nome_pro'], $referer_url)?>
+        <?=header_bar($product_name, $referer_url)?>
         <div class="product_container">
             <?php
                 if($product_not_found) {
