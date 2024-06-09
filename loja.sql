@@ -26,7 +26,7 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,8 @@ INSERT INTO `categoria` VALUES
 (1,'Hardware'),
 (2,'Decoração'),
 (3,'Vestuário'),
-(6,'Utensilio de cozinha');
+(6,'Utensilio de cozinha'),
+(7,'Presente');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +138,8 @@ INSERT INTO `imagem` VALUES
 (1,'1','1_0.webp'),
 (2,'3','3_0.jpg'),
 (3,'4','4_0.jpg'),
-(4,'5','5_0.jpg');
+(4,'5','5_0.jpg'),
+(5,'6','6_0.jpg');
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +205,8 @@ INSERT INTO `produto` VALUES
 ('2','Vaso de Vidro','Vaso de vidro para flores',60.00,15.00,NULL,NULL,NULL,2),
 ('3','Mouse','Mouse USB',35.99,120.00,NULL,NULL,NULL,1),
 ('4','Pendrive','Pendrive 64GB',20.00,200.00,NULL,NULL,NULL,1),
-('5','Headset','Fone de ouvido Bluetooth com plug P2 e carregamento miniUSB.<br>Arco de metal resistente e reajustável.<br>Cor preta; até 4 horas de bateria.',150.00,30.00,NULL,NULL,NULL,1);
+('5','Headset','Fone de ouvido Bluetooth com plug P2 e carregamento miniUSB.<br>Arco de metal resistente e reajustável.<br>Cor preta; até 4 horas de bateria.',150.00,30.00,NULL,NULL,NULL,1),
+('6','Caneca Flork Mães','Caneca com ilustrações Flork para o dia das mães',59.90,15.00,NULL,NULL,NULL,7);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-22 17:52:40
+-- Dump completed on 2024-05-24  8:29:45

@@ -1,6 +1,18 @@
+:root {
+  --text_color: #FFFFFF;
+  --bg_color: #000000;
+  --base_bg_color: #303030;
+  --base_accent_color: #AC0011;
+  --base_highlight_color: #CC0011;
+  --base_transparent_accent_color: rgba(172, 0, 17, 0.8);
+  --secondary_bg_color: #606060;
+  --cart_base_color: #11AC00;
+  --cart_hover_color: #116C00;
+}
+
 html {
-	color: #FFFFFF;
-	background-color: #000000;
+	color: var(--text_color);
+	background-color: var(--bg_color);
 	font-family: Arial, Georgia;
 }
 
@@ -14,24 +26,88 @@ body {
 }
 
 input, button, select, a:not(.image_link):not(.page_title) {
-	color: #FFFFFF;
-	background-color: #303030;
-	border: 2px solid #AC0011;
-	padding: 8px 12px 8px 12px;
+	color: var(--text_color);
+	background-color: var(--base_bg_color);
+	border: 2px solid var(--base_accent_color);
+	padding: 8px 12px;
 	text-align: center;
 	text-decoration: none;
+}
+
+input[type="checkbox"] {
+	position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 button {
 	cursor: pointer;
 }
 
+fieldset {
+  border: 0px;
+}
+
+.checkbox_container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: var(--base_bg_color);
+}
+
+.checkbox_container:hover input ~ .checkbox {
+  background-color: #ccc;
+}
+
+.checkbox_container input:checked ~ .checkbox {
+  background-color: var(--base_accent_color);
+}
+
+.checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+input:checked ~ .checkbox:after {
+  display: block;
+}
+
+.checkbox_container .checkbox:after {
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 input:hover, button:hover, select:hover, a:not(.image_link):not(.page_title):hover {
-	background-color: #000000;
+	background-color: var(--bg_color);
 }
 
 header, footer {
-	background-color: #AC0011;
+	background-color: var(--base_accent_color);
 	padding: 8px;
 	margin: 0px;
 	border-radius: 0px;
@@ -40,7 +116,7 @@ header, footer {
 
 header a.page_title {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: var(--text_color);
 }
 
 header > div.left, footer > div.left {
@@ -53,7 +129,8 @@ header > div.right, footer > div.right {
 
 header > div > * {
 	display: inline-block;
-	margin: 0px 8px 0px 8px;
+	margin: 0px 8px;
+  vertical-align: bottom;
 }
 
 header div, footer div {
@@ -64,6 +141,10 @@ header p, footer p {
 	margin: 0px;
 }
 
+header p.page_name {
+  margin-bottom: 4px;
+}
+
 header p.user_cpf_cnpj {
 	font-size: 12px;
 }
@@ -72,7 +153,7 @@ div.search_bar {
 	margin-left: auto;
 	margin-right: auto;
 	padding-top: 8px;
-	max-width: 400px;
+	width: 400px;
 }
 
 div.search_bar > * {
@@ -83,12 +164,38 @@ div.search_bar > * {
 	width: 100%;
 }
 
+div.search_bar > form {
+	background-color: var(--base_bg_color);
+	border: 2px solid;
+	border-color: var(--base_accent_color);
+}
+
 div.search_bar input[type="text"] {
-	width: 300px;
+	width: 330px;
+	border: 0px;
+	margin-right: 0px;
+}
+
+div.search_bar button {
+	border: 0px;
+	border-radius: 0px;
+	margin-left: 0px;
+	background-color: var(--base_accent_color);
+}
+
+div.search_bar button:hover {
+	border: 0px;
+	border-radius: 0px;
+	margin-left: 0px;
+	background-color: var(--base_highlight_color);
+}
+
+div.products_filters > * {
+	display: inline-block;
 }
 
 footer {
-	background-color: rgba(172, 0, 17, 0.8);
+	background-color: var(--base_transparent_accent_color);
 	backdrop-filter: blur(4px) brightness(120%);
 	position: fixed;
 	bottom: 0;
@@ -123,7 +230,7 @@ footer ul.products_cart > li.product_block > a.image_link {
 footer ul.products_cart > li.product_block > a.image_link > img {
 	width: 4rem;
 	height: 4rem;
-	background-color: #FFFFFF;
+	background-color: var(--text_color);
 	object-fit: contain;
 }
 
@@ -150,7 +257,7 @@ footer > div.right p {
 }
 
 div.user_prompt {
-	background-color: #303030;
+	background-color: var(--base_bg_color);
 	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
@@ -175,39 +282,60 @@ div.user_prompt > form > * {
 	margin: 8px;
 }
 
-div.products_container, div.product_container {
+div.main_content {
+    width: 100%;
+}
+
+div.main_content > div {
+	display: inline-block;
+  vertical-align: top;
+}
+
+div.products_filters {
+  width: auto;
+}
+
+div.products_filters input[type="number"] {
+	width: 80px;
+}
+
+div.products_filters, div.products_container, div.product_container {
 	margin: 12px;
+}
+
+div.products_container {
+  overflow: hidden;
+  width: 78%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ul.product_list {
 	list-style-type: none;
 	padding: 0px;
-	width: 100%;
 }
 
 li.product_card {
 	margin: 4px;
 	padding: 4px;
 	width: 20%;
-	min-width: 150px;
-	max-width: 170px;
 	min-height: 300px;
-	max-height: 350px;
-	background-color: #303030;
+	max-height: 550px;
+	background-color: var(--base_bg_color);
 	display: inline-block;
 	overflow: hidden;
 }
 
 li.product_card:hover {
-	background-color: #AC0011;
+	background-color: var(--base_accent_color);
 }
 
 li.product_card > img {
 	max-width: 100%;
 	width: 100%;
-	height: 10rem;
+	height: 13.5rem;
 	margin-bottom: 8px;
-	background-color: #FFFFFF;
+	background-color: var(--text_color);
 	object-fit: contain;
 }
 
@@ -242,17 +370,17 @@ div.product_container > div.operation_card > div.buttons {
 
 li.product_card > div.buttons > form > button.cart,
 div.operation_card button.cart {
-	border-color: #11AC00;
+	border-color: var(--cart_base_color);
 }
 
 li.product_card > div.buttons > form > button.cart:hover,
 div.operation_card button.cart:hover {
-	background-color: #116C00;
+	background-color: var(--cart_hover_color);
 }
 
 div.product_container {
 	width: 96%;
-	background-color: #303030;
+	background-color: var(--base_bg_color);
 	display: inline-block;
 	padding: 4px;
 }
@@ -267,7 +395,7 @@ div.product_container > div.operation_card {
 	min-width: 20%;
 	height: 100%;
 	float: right;
-	border: 1px solid #606060;
+	border: 1px solid var(--secondary_bg_color);
 	padding: 8px;
 }
 

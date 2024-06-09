@@ -23,11 +23,13 @@ function cart_bar() {
             . '<a class="image_link" href="product_detail.php?product_id=' . $product_id . '">'
             . '<img src="../files/pictures/' . $item['image'] . '" alt="' . $item['name'] . '">'
             . '</a>'
-            . '<form method="DELETE" action="delete_from_cart.php">'
+            . '<form method="POST" action="../functions/delete_from_cart.php">'
+            . '<input type="hidden" name="codigo_prod" value="' . $product_id . '">'
             . '<button type="submit">❌</button>'
             . '</form>'
-            . '<form method="PUT" action="uptade_cart_item.php">'
-            . number_selector($item['max_available'], 'quantidade', $item['quantity'])
+            . '<form method="POST" action="../functions/update_cart_item.php">'
+            . '<input type="hidden" name="codigo_prod" value="' . $product_id . '">'
+            . number_selector($item['max_available'], 'quantidade', $item['quantity'], $onchange = true)
             . '</form>'
             . '</li>';
 

@@ -18,7 +18,7 @@ function connect() {
 }
 
 function number_to_brl($number) {
-    return "R$ " . preg_replace("/\./", ",", $number);
+    return "R$ " . preg_replace("/\./", ",", sprintf("%.2f", $number));
 }
 
 function header_bar($page_name, $back_page = null) {
@@ -28,7 +28,7 @@ function header_bar($page_name, $back_page = null) {
         . '<div class="left">'
         . $referer
         . '<h1><a class="page_title" href="index.php">E-Commerce</a></h1>'
-        . '<p>' . $page_name . '</p>'
+        . '<p class="page_name">' . $page_name . '</p>'
         . '</div>'
         . '<div class="right"><div>'
         . '<p class="user_name"><b>' . $_SESSION['user_name'] . '</b></p>'
@@ -42,8 +42,9 @@ function header_bar($page_name, $back_page = null) {
     return $header;
 }
 
-function number_selector($number, $name, $preselect = null) {
-    $selector = '<select name="' . $name . '">';
+function number_selector($number, $name, $preselect = null, $onchange = false) {
+    $onchange = $onchange ? 'onchange="this.form.submit()"' : '';
+    $selector = '<select ' . $onchange . ' name="' . $name . '">';
 
     if ($number > 0) {
         foreach(range(1, $number) as $option) {
@@ -58,5 +59,9 @@ function number_selector($number, $name, $preselect = null) {
 
 function switch_newline($text) {
     return preg_replace("/\\n/", "<br>", $text);
+}
+
+function array_filter_input($input) {
+    return filter_var(trim($input), FILTER_SANITIZE_STRING);
 }
 ?>

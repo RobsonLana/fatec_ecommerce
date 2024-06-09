@@ -31,16 +31,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Página inicial - E-Commerce</title>
+        <title>Administrador - E-Commerce</title>
         <meta charset="UTF-8">
         <meta name="viewpoort" content="width=device-width, inital-scale=1.0">
 
         <meta name="keywords" content="ecommerce, e-commerce, project, fatec, php">
 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../page/style.css">
     </head>
     <body>
-        <?=header_bar('Página inicial')?>
+        <?=header_bar('Administrador')?>
         <div class="products_container">
             <?php
                 if (count($products) > 0) {
