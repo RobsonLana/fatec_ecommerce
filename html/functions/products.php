@@ -1,18 +1,19 @@
 <?php
 $product_joint_base_query = "select"
         . " produto.codigo_prod, nome_pro, descricao, valor_unitario, quantidade, produto.id as categoria,"
-        . " imagem.nome_arquivo, categoria.nome"
+        . " peso, dimensoes,"
+        . " imagem.nome_arquivo, categoria.nome, categoria.id"
         . " from produto"
         . " left join imagem on imagem.codigo_prod = produto.codigo_prod"
         . " left join categoria on produto.id = categoria.id";
 
-function ordered_list($connection, $order = "valor_unitario", $asc = true) {
+function ordered_list($connection, $order = "valor_unitario", $desc = true) {
     global $product_joint_base_query;
 
-    $query = $product_joint_base_query . " where quantidade > 0" . " order by $order $asc";
+    $desc = $desc ? 'desc' : 'asc';
 
-    $asc = $asc ? 'asc' : 'desc';
-    $statement = $connection->prepare($product_joint_base_query . " where quantidade > 0" . " order by $order $asc");
+    $query = $product_joint_base_query . " where quantidade > 0" . " order by $order $desc";
+    $statement = $connection->prepare($query);
 
     $statement->execute();
 
@@ -53,7 +54,7 @@ function get_product_by_id($connection, $product_id) {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function search_product($connection, $term = "", $order = "valor_unitario", $asc = true, $price_from = null, $price_to = null, $categories = []) {
+function search_product($connection, $term = "", $order = "valor_unitario", $desc = true, $price_from = null, $price_to = null, $categories = []) {
     global $product_joint_base_query;
 
     $conditions = ["quantidade > 0"];
@@ -70,7 +71,7 @@ function search_product($connection, $term = "", $order = "valor_unitario", $asc
         array_push($conditions, "produto.id in (" . implode(', ', $categories) . ")");
     }
 
-    $asc = $asc ? 'asc' : 'desc';
+    $desc = $desc ? 'desc' : 'asc';
     $term = "%" . $term . "%";
 
     $statement = $connection->prepare(
@@ -79,7 +80,7 @@ function search_product($connection, $term = "", $order = "valor_unitario", $asc
         . ' or produto.descricao like :term'
         . ' or categoria.nome like :term)'
         . ' and (' . implode(' and ', $conditions) . ')'
-        . ' order by ' . $order . ' ' . $asc
+        . ' order by ' . $order . ' ' . $desc
     );
 
     $statement->bindValue(":term", $term, PDO::PARAM_STR);

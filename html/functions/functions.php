@@ -21,8 +21,28 @@ function number_to_brl($number) {
     return "R$ " . preg_replace("/\./", ",", sprintf("%.2f", $number));
 }
 
-function header_bar($page_name, $back_page = null) {
+function header_user_block($user_name, $user) {
+
+        return '<div>'
+        . '<p class="user_name"><b>' . $user_name . '</b></p>'
+        . '<p class="user_cpf_cnpj"><b>' . $user . '</b></p>'
+        . '</div>'
+        . '<form method="GET" action="user_select.php">'
+        . '<button>Deslogar</button>'
+        . '</form>';
+}
+
+function header_admin_block() {
+    return '<form method="GET" action="../page/index.php">'
+        . '<button>Sair para página do usuário</button>'
+        . '</form>';
+}
+
+
+function header_bar($page_name, $mode, $back_page = null) {
     $referer = $back_page != null ? '<a href="' . $back_page . '">Voltar</a>' : '';
+
+    $right_block = $mode == 'admin' ? header_admin_block() : header_user_block($_SESSION['user_name'], $_SESSION['user']);
 
     $header = '<header>'
         . '<div class="left">'
@@ -30,13 +50,8 @@ function header_bar($page_name, $back_page = null) {
         . '<h1><a class="page_title" href="index.php">E-Commerce</a></h1>'
         . '<p class="page_name">' . $page_name . '</p>'
         . '</div>'
-        . '<div class="right"><div>'
-        . '<p class="user_name"><b>' . $_SESSION['user_name'] . '</b></p>'
-        . '<p class="user_cpf_cnpj"><b>' . $_SESSION['user'] . '</b></p>'
-        . '</div>'
-        . '<form method="GET" action="user_select.php">'
-        . '<button>Deslogar</button>'
-        . '</form></div>'
+        . '<div class="right">'
+        . $right_block
         . '</div></header>';
 
     return $header;

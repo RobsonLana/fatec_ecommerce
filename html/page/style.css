@@ -3,11 +3,15 @@
   --bg_color: #000000;
   --base_bg_color: #303030;
   --base_accent_color: #AC0011;
-  --base_highlight_color: #CC0011;
+  --base_highlight_color: #DC0011;
   --base_transparent_accent_color: rgba(172, 0, 17, 0.8);
   --secondary_bg_color: #606060;
   --cart_base_color: #11AC00;
   --cart_hover_color: #116C00;
+}
+
+::selection {
+  background: #0011AC;
 }
 
 html {
@@ -25,13 +29,26 @@ body {
 	border-radius: 8px;
 }
 
-input, button, select, a:not(.image_link):not(.page_title) {
+a, a:visited {
+  color: var(--text_color);
+	text-decoration: none;
+}
+
+a:hover {
+  color: var(--base_bg_color);
+}
+
+.input_file, input, textarea, button, select, a:not(.image_link):not(.page_title) {
 	color: var(--text_color);
 	background-color: var(--base_bg_color);
 	border: 2px solid var(--base_accent_color);
 	padding: 8px 12px;
-	text-align: center;
 	text-decoration: none;
+  font-family: inherit;
+}
+
+input, button, select, a:not(.image_link):not(.page_title) {
+	text-align: center;
 }
 
 input[type="checkbox"] {
@@ -40,6 +57,18 @@ input[type="checkbox"] {
   cursor: pointer;
   height: 0;
   width: 0;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.input_file {
+  cursor: pointer;
+}
+
+div.input_file_box {
+  padding: 8px 0px;
 }
 
 button {
@@ -190,10 +219,6 @@ div.search_bar button:hover {
 	background-color: var(--base_highlight_color);
 }
 
-div.products_filters > * {
-	display: inline-block;
-}
-
 footer {
 	background-color: var(--base_transparent_accent_color);
 	backdrop-filter: blur(4px) brightness(120%);
@@ -283,16 +308,15 @@ div.user_prompt > form > * {
 }
 
 div.main_content {
-    width: 100%;
-}
-
-div.main_content > div {
-	display: inline-block;
-  vertical-align: top;
+	display: grid;
+	padding: 4px;
+  grid-template-areas:
+    "filters products";
+  grid-template-columns: max(25%) 1fr;
 }
 
 div.products_filters {
-  width: auto;
+  grid-area: filters;
 }
 
 div.products_filters input[type="number"] {
@@ -305,9 +329,10 @@ div.products_filters, div.products_container, div.product_container {
 
 div.products_container {
   overflow: hidden;
-  width: 78%;
   margin-left: auto;
   margin-right: auto;
+  grid-area: products;
+  justify-self: stretch;
 }
 
 ul.product_list {
@@ -330,7 +355,7 @@ li.product_card:hover {
 	background-color: var(--base_accent_color);
 }
 
-li.product_card > img {
+li.product_card  img {
 	max-width: 100%;
 	width: 100%;
 	height: 13.5rem;
@@ -339,7 +364,11 @@ li.product_card > img {
 	object-fit: contain;
 }
 
-li.product_card > div.product_details > p {
+li.add_product img {
+	background-color: var(--secondary_bg_color);
+}
+
+li.product_card > div.product_details p {
 	font-size: 0.8rem;
 	margin: 0px 0px 8px 0px;
 }
@@ -351,15 +380,15 @@ li.product_card > div.product_details {
 	max-height: 7.6rem;
 }
 
-li.product_card > div.product_details > p.product_title {
+li.product_card > div.product_details p.product_title {
 	font-size: 1.2rem;
 }
 
-li.product_card > div.product_details > p.product_price {
+li.product_card > div.product_details p.product_price {
 	font-size: 1rem;
 }
 
-li.product_card > div.product_details > p.product_description {
+li.product_card > div.product_details p.product_description {
 	height: 2.5rem;
 }
 
@@ -379,35 +408,40 @@ div.operation_card button.cart:hover {
 }
 
 div.product_container {
-	width: 96%;
 	background-color: var(--base_bg_color);
-	display: inline-block;
+	display: grid;
 	padding: 4px;
+  grid-template-areas:
+    "image details options";
+  grid-template-columns: max(35%) 1fr 0.5fr;
 }
 
-div.product_container > img {
-	max-width: 30%;
+div.product_container div.image_box {
 	margin: 0px 12px 0px 0px;
-	float: left;
+  grid-area: image;
 }
 
-div.product_container > div.operation_card {
+div.product_container img {
+  max-width: 100%;
+}
+
+div.operation_card {
 	min-width: 20%;
-	height: 100%;
-	float: right;
 	border: 1px solid var(--secondary_bg_color);
 	padding: 8px;
+  grid-area: options;
+  align-self: start;
 }
 
-div.product_container > div.product_details {
-	min-width: 30%;
+div.product_details {
+  grid-area: details;
 }
 
-div.product_container > div.product_details > h2 {
+div.product_details > h2 {
 	font-size: 3rem;
 	margin: 8px 0px 4px 0px;
 }
 
-div.product_container > div.product_details > p.product_price {
+div.product_details p.product_price {
 	font-size: 1.4rem;
 }

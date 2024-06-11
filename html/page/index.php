@@ -39,7 +39,6 @@
         ];
     }
 
-
     $connection = connect();
 
     $products = [];
@@ -55,7 +54,6 @@
     }
 
     $categories = category_count($connection);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,7 +67,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <?=header_bar('Página inicial', $referer_url)?>
+        <?=header_bar('Página inicial', 'user', $referer_url)?>
         <div class="search_bar">
             <form method="GET" action="index.php">
                 <input type="text" name="search_term" placeholder="Pesquisar produto" value="<?=$search_term?>">
@@ -87,8 +85,8 @@
                         <option <?= $order_by == "nome" ? "selected" : "" ?> value="nome">Categoria</option>
                     </select>
                     <select name="asc">
-                        <option <?= $asc ? "selected" : "" ?> value="true">Ascendente</option>
-                        <option <?= $asc ? "" : "selected" ?> value="false">Descendente</option>
+                        <option <?= $asc ? "" : "selected" ?> value="false">Ascendente</option>
+                        <option <?= $asc ? "selected" : "" ?> value="true">Descendente</option>
                     </select>
                     <h4>Limite de preço</h4>
                     <table>
@@ -126,27 +124,31 @@
                             $product_link = "./product_detail.php?product_id=" . $product['codigo_prod'];
                             $display_price = number_to_brl($product['valor_unitario']);
                 ?>
-                <li class="product_card">
-                    <img src="../files/pictures/<?= $product['nome_arquivo']?>" alt="<?= $product['nome_pro']?>">
-                    <div class="product_details">
-                        <p class="product_title"><?= $product['nome_pro']?></p>
-                        <p class="product_price"><?= $display_price?></p>
-                        <p><?= $product['nome']?></p>
-                        <p class="product_description"><?= switch_newline($product['descricao'])?></p>
-                    </div>
-                    <div class="buttons">
-                        <a class="details" style="float:left;" href="<?= $product_link?>">Detalhes</a>
-                        <form method="POST" action="../functions/add_to_cart.php">
-                            <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
-                            <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
-                            <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
-                            <input type="hidden" name="quantidade" value="1">
-                            <input type="hidden" name="max_quantity" value="<?=round($product['quantidade'])?>">
-                            <button class="cart" style="float:right;" type="submit">🛒</button>
-                        </form>
+                    <li class="product_card">
+                        <a class="image_link" href="<?= $product_link?>">
+                            <img src="../files/pictures/<?= $product['nome_arquivo']?>" alt="<?= $product['nome_pro']?>">
+                        </a>
+                        <div class="product_details">
+                            <a class="image_link" href="<?= $product_link?>">
+                                <p class="product_title"><?= $product['nome_pro']?></p>
+                            </a>
+                            <p class="product_price"><?= $display_price?></p>
+                            <p><?= $product['nome']?></p>
+                            <p class="product_description"><?= switch_newline($product['descricao'])?></p>
+                        </div>
+                        <div class="buttons">
+                            <a class="details" style="float:left;" href="<?= $product_link?>">Detalhes</a>
+                            <form method="POST" action="../functions/add_to_cart.php">
+                                <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                                <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
+                                <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
+                                <input type="hidden" name="quantidade" value="1">
+                                <input type="hidden" name="max_quantity" value="<?=round($product['quantidade'])?>">
+                                <button class="cart" style="float:right;" type="submit">🛒</button>
+                            </form>
 
-                    </div>
-                </li>
+                        </div>
+                    </li>
 
                 <?php
                         }

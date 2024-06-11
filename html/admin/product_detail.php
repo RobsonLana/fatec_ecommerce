@@ -3,10 +3,6 @@
 
     $product_id = filter_input(INPUT_GET, 'product_id', FILTER_SANITIZE_STRING);
 
-    if (!isset($_SESSION['user'])) {
-        header("location:./user_select.php");
-    }
-
     include_once('../functions/functions.php');
     include_once('../functions/products.php');
     include_once('../functions/cart.php');
@@ -39,10 +35,10 @@
 
         <meta name="keywords" content="ecommerce, e-commerce, project, fatec, php">
 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../page/style.css">
     </head>
     <body>
-        <?=header_bar($product_name, 'user', $referer_url)?>
+        <?=header_bar($product_name, 'admin', $referer_url)?>
         <div class="product_container">
             <?php
                 if($product_not_found) {
@@ -56,30 +52,30 @@
                     $display_price = number_to_brl($product['valor_unitario']);
 
             ?>
-            <div class="image_box">
                 <img src="../files/pictures/<?=$product['nome_arquivo']?>" alt="<?=$product['nome_pro']?>">
-            </div>
-            <div class="product_details">
-                <h2><?=$product['nome_pro']?></h2>
-                <h3><?=$product['nome']?></h3>
-                <p class="product_price"><?=$display_price?></p>
-                <p class="product_description"><?=switch_newline($product['descricao'])?></p>
-                <p class="product_weight"><strong>Peso:</strong> <?=$product['peso'] != null ? $product['peso'] : "Não informado"?></p>
-                <p class="product_dimensions"><strong>Dimensões:</strong> <?=$product['dimensoes'] != null ? $product['dimensoes'] : "Não informadas"?></p>
-            </div>
-            <div class="operation_card">
-                <p class="product_price"><?=$display_price?></p>
-                <p><?=$quantity?> em estoque</p>
 
-                <form method="POST" action="../functions/add_to_cart.php">
-                    <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
-                    <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
-                    <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
-                    <input type="hidden" name="max_quantity" value="<?=$quantity?>">
-                    <?=number_selector($quantity, 'quantidade')?>
-                    <button class="cart" type="submit">Adicionar ao carrinho</button>
-                </form>
-            </div>
+                <div class="operation_card">
+                    <p class="product_price"><?=$display_price?></p>
+                    <p><?=$quantity?> em estoque</p>
+
+                    <form method="POST" action="../functions/add_to_cart.php">
+                        <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                        <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
+                        <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
+                        <input type="hidden" name="max_quantity" value="<?=$quantity?>">
+                        <?=number_selector($quantity, 'quantidade')?>
+                        <button class="cart" type="submit">Adicionar ao carrinho</button>
+                    </form>
+
+                </div>
+                <div class="product_details">
+                    <h2><?=$product['nome_pro']?></h2>
+                    <h3><?=$product['nome']?></h3>
+                    <p class="product_price"><?=$display_price?></p>
+                    <p class="product_description"><?=switch_newline($product['descricao'])?></p>
+                    <p class="product_weight"><strong>Peso:</strong> <?=$product['peso'] != null ? $product['peso'] : "Não informado"?></p>
+                    <p class="product_dimensions"><strong>Dimensões:</strong> <?=$product['dimensoes'] != null ? $product['dimensoes'] : "Não informadas"?></p>
+                </div>
             <?php
                 }
             ?>

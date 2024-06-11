@@ -39,5 +39,8 @@
                 <button>Entrar</button>
             </form>
         </div>
+        <footer>
+            <p style="text-align: center;">Imagens dos produtos coletadas de Amazon e Aliexpress. Projeto de finalidade acadêmica.</p>
+        </footer>
     </body>
 </html>
