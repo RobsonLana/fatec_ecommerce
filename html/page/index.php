@@ -140,9 +140,11 @@
                             <a class="details" style="float:left;" href="<?= $product_link?>">Detalhes</a>
                             <form method="POST" action="../functions/add_to_cart.php">
                                 <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                                <input type="hidden" name="nome_pro" value="<?=$product['nome_pro']?>">
                                 <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
                                 <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
                                 <input type="hidden" name="quantidade" value="1">
+                                <input type="hidden" name="category" value="<?= $product['nome']?>">
                                 <input type="hidden" name="max_quantity" value="<?=round($product['quantidade'])?>">
                                 <button class="cart" style="float:right;" type="submit">🛒</button>
                             </form>

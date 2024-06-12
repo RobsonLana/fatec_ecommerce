@@ -21,7 +21,7 @@ function ordered_list($connection, $order = "valor_unitario", $desc = true) {
 }
 
 function category_count($connection) {
-    $statement = $connection-> prepare(
+    $statement = $connection->prepare(
         "select categoria.id as id, categoria.nome as category, count(*) from produto"
         . " left join categoria on produto.id = categoria.id"
         . " group by categoria.nome, categoria.id;"
@@ -30,6 +30,16 @@ function category_count($connection) {
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_categories($connection) {
+    $statement = $connection->prepare(
+        "select id, nome from categoria;"
+    );
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_KEY_PAIR);
 }
 
 function full_list($connection) {
@@ -90,5 +100,96 @@ function search_product($connection, $term = "", $order = "valor_unitario", $des
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function add_image($connection, $product_id, $image) {
+    $image_uniqid = uniqid();
+    $ext = pathinfo($image['name'])['extension'];
+    $temp_name = $image['tmp_name'];
+    $final_name = $product_id . '_' . $image_uniqid . '.' . $ext;
+
+    $target_dir = $_SERVER["DOCUMENT_ROOT"] . "/files/pictures/$final_name";
+
+    move_uploaded_file($temp_name, $target_dir);
+
+    $statement = $connection->prepare(
+        'insert into imagem (codigo_prod, nome_arquivo)'
+        . ' values (:product_id, :final_name);'
+    );
+
+    $statement->bindValue(":product_id", $product_id, PDO::PARAM_STR);
+    $statement->bindValue(":final_name", $final_name, PDO::PARAM_STR);
+
+    $statement->execute();
+
+    return $final_name;
+}
+
+function add_category($connection, $category) {
+    $statement = $connection->prepare(
+        'insert into categoria (nome)'
+        . ' values (:category)'
+    );
+
+    $statement->bindValue(":category", $category, PDO::PARAM_STR);
+
+    $statement->execute();
+
+    $select_stmt = $connection->prepare('select id from categoria where nome = :category');
+    $select_stmt->bindValue(":category", $category, PDO::PARAM_STR);
+    $select_stmt->execute();
+    $category_id = $select_stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    return $category_id[0];
+}
+
+function create_product($connection, $name, $description, $price, $quantity, $weight, $dimensions, $category) {
+    $product_id = uniqid();
+
+    $statement = $connection->prepare(
+        'insert into produto (codigo_prod, nome_pro, descricao, valor_unitario, quantidade, peso, dimensoes, id)'
+        . ' values (:product_id, :name, :description, :price, :quantity, :weight, :dimensions, :category);'
+    );
+
+    $statement->bindValue(":product_id", $product_id, PDO::PARAM_STR);
+    $statement->bindValue(":name", $name, PDO::PARAM_STR);
+    $statement->bindValue(":description", $description, PDO::PARAM_STR);
+    $statement->bindValue(":price", $price, PDO::PARAM_STR);
+    $statement->bindValue(":quantity", $quantity, PDO::PARAM_INT);
+    $statement->bindValue(":weight", $weight, PDO::PARAM_STR);
+    $statement->bindValue(":dimensions", $dimensions, PDO::PARAM_STR);
+    $statement->bindValue(":category", $category, PDO::PARAM_STR);
+
+    $statement->execute();
+
+    return $product_id;
+}
+
+function update_product($connection, $product_id, $name, $description, $price, $quantity, $weight, $dimensions, $category) {
+
+    $statement = $connection->prepare(
+        'update produto'
+        . ' set nome_pro = :name,'
+        . ' descricao = :description,'
+        . ' valor_unitario = :price,'
+        . ' quantidade = :quantity,'
+        . ' peso = :weight,'
+        . ' dimensoes = :dimensions,'
+        . ' id = :category'
+        . ' where codigo_prod = :product_id;'
+    );
+
+    $statement->bindValue(":product_id", $product_id, PDO::PARAM_STR);
+    $statement->bindValue(":name", $name, PDO::PARAM_STR);
+    $statement->bindValue(":description", $description, PDO::PARAM_STR);
+    $statement->bindValue(":price", $price, PDO::PARAM_STR);
+    $statement->bindValue(":quantity", $quantity, PDO::PARAM_INT);
+    $statement->bindValue(":weight", $weight, PDO::PARAM_STR);
+    $statement->bindValue(":dimensions", $dimensions, PDO::PARAM_STR);
+    $statement->bindValue(":category", $category, PDO::PARAM_STR);
+
+    $statement->execute();
+
+    return $product_id;
 }
 ?>

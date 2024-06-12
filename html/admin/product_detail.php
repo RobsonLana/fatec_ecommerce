@@ -5,7 +5,6 @@
 
     include_once('../functions/functions.php');
     include_once('../functions/products.php');
-    include_once('../functions/cart.php');
 
     $referer_url = "./index.php";
 
@@ -39,33 +38,31 @@
     </head>
     <body>
         <?=header_bar($product_name, 'admin', $referer_url)?>
-        <div class="product_container">
-            <?php
-                if($product_not_found) {
-            ?>
-            <div class="error">
-                <p>404: O produto em questão não foi encontrado...</p>
-            </div>
-            <?php
-                } else {
-                    $quantity = round($product['quantidade']);
-                    $display_price = number_to_brl($product['valor_unitario']);
+        <?php
+            if($product_not_found) {
+        ?>
+        <div class="error">
+            <p>404: O produto de ID "<?= $product_id?>" não foi encontrado...</p>
+        </div>
+        <?php
+            } else {
+                $quantity = round($product['quantidade']);
+                $display_price = number_to_brl($product['valor_unitario']);
 
-            ?>
-                <img src="../files/pictures/<?=$product['nome_arquivo']?>" alt="<?=$product['nome_pro']?>">
+        ?>
+            <div class="product_container">
+                <div class="image_box">
+                    <img src="../files/pictures/<?=$product['nome_arquivo']?>" alt="<?=$product['nome_pro']?>">
+                </div>
 
                 <div class="operation_card">
                     <p class="product_price"><?=$display_price?></p>
                     <p><?=$quantity?> em estoque</p>
+                    <p>ID do produto: <?= $product["codigo_prod"]?></p>
 
-                    <form method="POST" action="../functions/add_to_cart.php">
-                        <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
-                        <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
-                        <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
-                        <input type="hidden" name="max_quantity" value="<?=$quantity?>">
-                        <?=number_selector($quantity, 'quantidade')?>
-                        <button class="cart" type="submit">Adicionar ao carrinho</button>
-                    </form>
+                    <div class="buttons">
+                        <a href="./product_edit.php?product_id=<?= $product_id?>">Editar produto</a>
+                    </div>
 
                 </div>
                 <div class="product_details">
@@ -80,10 +77,5 @@
                 }
             ?>
         </div>
-        <?php
-            if ($_SESSION['cart']['count'] > 0) {
-                echo cart_bar();
-            }
-        ?>
     </body>
 </html>

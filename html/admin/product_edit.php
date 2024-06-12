@@ -3,13 +3,8 @@
 
     $product_id = filter_input(INPUT_GET, 'product_id', FILTER_SANITIZE_STRING);
 
-    if (!isset($_SESSION['user'])) {
-        header("location:./user_select.php");
-    }
-
     include_once('../functions/functions.php');
     include_once('../functions/products.php');
-    include_once('../functions/cart.php');
 
     $referer_url = "./index.php";
 
@@ -30,6 +25,7 @@
         $product_name = $product['nome_pro'];
     } else {
         $product = array(
+            'codigo_prod' => '',
             'nome_pro' => '',
             'nome_arquivo' => '../assets/cube-alt-2-svgrepo-com.svg',
             'descricao' => '',
@@ -42,7 +38,7 @@
         );
     }
 
-    $categories = category_count($connection);
+    $categories = get_categories($connection);
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,7 +59,8 @@
             </div>
 
             <div class="product_details">
-                <form method="POST" action="../functions/update_product.php">
+                <form method="POST" action="../functions/update_product.php" enctype="multipart/form-data">
+                    <input type="hidden" name="codigo_prod" value="<?= $product['codigo_prod']?>">
                     <table>
                         <tr>
                             <td>
@@ -72,7 +69,7 @@
                             <td>
                                 <div class="input_file_box">
                                     <label class="input_file">
-                                        <input type="file" name="images" accept=".png, .jpeg, .jpg, .webp">
+                                        <input type="file" name="images[]" accept="image/*">
                                         Escolher imagens
                                     </label>
                                 </div>
@@ -94,8 +91,8 @@
                                 <input type="text" name="category" list="categories" placeholder="Presente / Ferramenta" value="<?= $product['nome']?>">
                                     <datalist id="categories">
                                         <?php
-                                            foreach($categories as $category) {
-                                                echo '<option value="' . $category["category"] . '">' . $category["id"] . '</option>';
+                                            foreach($categories as $category_id => $category) {
+                                                echo '<option value="' . $category . '">' . $category_id . '</option>';
                                             }
                                         ?>
                                     </datalist>
@@ -103,7 +100,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="price">Valor (R$):</label>
+                                <label for="valor_unitario">Valor (R$):</label>
                             </td>
                             <td>
                                 <input type="number" name="valor_unitario" step="0.01" value="<?= $product["valor_unitario"]?>">
@@ -111,40 +108,49 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="description">Descrição:</label>
+                                <label for="descricao">Descrição:</label>
                             </td>
                             <td>
-                                <textarea name="description" placeholder="Descrição do Produto<br>Com break em HTML"><?= $product["descricao"]?></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="weight">Peso:</label>
-                            </td>
-                            <td>
-                                <input type="text" name="weight" placeholder="500g / 1.5Kg" value="<?= $product["peso"]?>">
+                                <textarea rows="15" name="descricao" placeholder="Descrição do Produto"><?= $product["descricao"]?></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label for="dimensions">Dimensões:</label>
+                                <label for="quantidade">Estoque:</label>
                             </td>
                             <td>
-                                <input type="text" name="dimensions" placeholder="10x15.8x100mm" value="<?= $product["dimensoes"]?>">
+                                <input type="number" name="quantidade" value="<?= round($product["quantidade"])?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="peso">Peso:</label>
+                            </td>
+                            <td>
+                                <input type="text" name="peso" placeholder="500g / 1.5Kg" value="<?= $product["peso"]?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="dimensoes">Dimensões:</label>
+                            </td>
+                            <td>
+                                <input type="text" name="dimensoes" placeholder="10x15.8x100mm" value="<?= $product["dimensoes"]?>">
                             </td>
                         </tr>
                     </table>
+                </div>
+                <div class="operation_card">
+                    <?php
+                        if (isset($product["codigo_prod"])) {
+                            echo '<p>ID do produto: ' . $product["codigo_prod"] . '</p>';
+                        }
+                    ?>
+                    <div class="buttons">
+                        <a href="./product_detail.php?product_id=<?= $product_id?>">Descartar</a>
+                        <button class="cart" type="submit">Salvar deatlhes</button>
+                    </div>
                 </form>
-            </div>
-            <div class="operation_card">
-                <?php
-                    if (isset($product["codigo_prod"])) {
-                        echo '<p>ID do produto: ' . $product["codigo_prod"] . '</p>';
-                    }
-                ?>
-                <button type="submit">Descartar</button>
-                <button class="cart" type="submit">Visualizar na loja</button>
-
             </div>
         </div>
     </body>

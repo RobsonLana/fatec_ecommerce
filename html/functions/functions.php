@@ -67,6 +67,8 @@ function number_selector($number, $name, $preselect = null, $onchange = false) {
             $selector = $selector . '<option ' . $selected  . ' value="' . $option . '">'
                 . $option . '</option>';
         }
+    } else {
+        $selector = $selector . '<option selected value="0">0</option>';
     }
 
     return $selector . '</select>';

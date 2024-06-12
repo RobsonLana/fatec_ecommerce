@@ -42,7 +42,7 @@ function cart_bar() {
         . '<p>Total: <b>' . number_to_brl($_SESSION['cart']['subtotal']) . '</b></p>'
         . '<p>Quantidade: <b>' . $_SESSION['cart']['count'] . '</b></p>'
         . '<div class="finish">'
-        . '<a href="#">Finalizar pedido</a>'
+        . '<a href="./summary.php">Finalizar pedido</a>'
         . '</div></div>';
 
 

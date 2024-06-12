@@ -25,9 +25,17 @@
 
     $product_not_found = count($product) == 0;
 
+    $remaining_quantity = 0;
+
     if (!$product_not_found) {
         $product = $product[0];
         $product_name = $product['nome_pro'];
+        $remaining_quantity = round($product['quantidade']);
+
+        if (isset($_SESSION['cart']['items'][$product['codigo_prod']])) {
+            $remaining_quantity = $remaining_quantity - $_SESSION['cart']['items'][$product['codigo_prod']]['quantity'];
+        }
+
     }
 ?>
 <!DOCTYPE html>
@@ -43,19 +51,19 @@
     </head>
     <body>
         <?=header_bar($product_name, 'user', $referer_url)?>
-        <div class="product_container">
-            <?php
-                if($product_not_found) {
-            ?>
-            <div class="error">
-                <p>404: O produto em questão não foi encontrado...</p>
-            </div>
-            <?php
-                } else {
-                    $quantity = round($product['quantidade']);
-                    $display_price = number_to_brl($product['valor_unitario']);
+        <?php
+            if($product_not_found) {
+        ?>
+        <div class="error">
+            <p>404: O produto em questão não foi encontrado...</p>
+        </div>
+        <?php
+            } else {
+                $quantity = round($product['quantidade']);
+                $display_price = number_to_brl($product['valor_unitario']);
 
-            ?>
+        ?>
+        <div class="product_container">
             <div class="image_box">
                 <img src="../files/pictures/<?=$product['nome_arquivo']?>" alt="<?=$product['nome_pro']?>">
             </div>
@@ -73,10 +81,12 @@
 
                 <form method="POST" action="../functions/add_to_cart.php">
                     <input type="hidden" name="codigo_prod" value="<?=$product['codigo_prod']?>">
+                    <input type="hidden" name="nome_pro" value="<?=$product['nome_pro']?>">
                     <input type="hidden" name="valor_unitario" value="<?=$product['valor_unitario']?>">
                     <input type="hidden" name="image" value="<?=$product['nome_arquivo']?>">
                     <input type="hidden" name="max_quantity" value="<?=$quantity?>">
-                    <?=number_selector($quantity, 'quantidade')?>
+                    <?=number_selector($remaining_quantity, 'quantidade')?>
+                    <input type="hidden" name="category" value="<?= $product['nome']?>">
                     <button class="cart" type="submit">Adicionar ao carrinho</button>
                 </form>
             </div>

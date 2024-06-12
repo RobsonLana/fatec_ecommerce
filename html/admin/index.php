@@ -2,9 +2,6 @@
     session_start();
     include_once('../functions/functions.php');
     include_once('../functions/products.php');
-    include_once('../functions/cart.php');
-
-    $user = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_STRING);
 
     $search_term = filter_input(INPUT_GET, 'search_term', FILTER_SANITIZE_STRING);
 

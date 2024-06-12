@@ -25,6 +25,10 @@ body {
 	margin-bottom: 130px;
 }
 
+tr.subtotal {
+  font-size: 1.4rem;
+}
+
 * {
 	border-radius: 8px;
 }
@@ -45,6 +49,10 @@ a:hover {
 	padding: 8px 12px;
 	text-decoration: none;
   font-family: inherit;
+}
+
+button {
+  font-size: 0.9rem;
 }
 
 input, button, select, a:not(.image_link):not(.page_title) {
@@ -77,6 +85,10 @@ button {
 
 fieldset {
   border: 0px;
+}
+
+.align_right {
+  text-align: right;
 }
 
 .checkbox_container {
@@ -210,6 +222,7 @@ div.search_bar button {
 	border-radius: 0px;
 	margin-left: 0px;
 	background-color: var(--base_accent_color);
+  font-size: 0.8rem;
 }
 
 div.search_bar button:hover {
@@ -281,7 +294,7 @@ footer > div.right p {
 	text-align: right;
 }
 
-div.user_prompt {
+div.user_prompt, div.error {
 	background-color: var(--base_bg_color);
 	margin-top: 20px;
 	margin-left: auto;
@@ -290,7 +303,7 @@ div.user_prompt {
 	max-width: 400px;
 }
 
-div.user_prompt > * {
+div.user_prompt > *, div.error > * {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
@@ -312,7 +325,15 @@ div.main_content {
 	padding: 4px;
   grid-template-areas:
     "filters products";
-  grid-template-columns: max(25%) 1fr;
+  grid-template-columns: minmax(100px, 25%) 1fr;
+}
+
+div.cart_content {
+	display: grid;
+	padding: 4px;
+  grid-template-areas:
+    "products options";
+  grid-template-columns: minmax(400px, 800px) 0.7fr;
 }
 
 div.products_filters {
@@ -329,8 +350,6 @@ div.products_filters, div.products_container, div.product_container {
 
 div.products_container {
   overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
   grid-area: products;
   justify-self: stretch;
 }
@@ -351,6 +370,20 @@ li.product_card {
 	overflow: hidden;
 }
 
+div.cart_content li.product_card {
+  width: auto;
+  height: 120px;
+  min-height: auto;
+  display: grid;
+  grid-template-areas:
+    "image details buttons";
+  grid-template-columns: 140px 1fr 0.7fr;
+}
+
+div.cart_content li.product_card > * {
+  display: inline-block;
+}
+
 li.product_card:hover {
 	background-color: var(--base_accent_color);
 }
@@ -364,6 +397,10 @@ li.product_card  img {
 	object-fit: contain;
 }
 
+div.cart_content li.product_card  img {
+	height: 120px;
+}
+
 li.add_product img {
 	background-color: var(--secondary_bg_color);
 }
@@ -375,9 +412,12 @@ li.product_card > div.product_details p {
 
 li.product_card > div.product_details {
 	overflow: hidden;
-	display: block;
 	text-overflow: ellipsis;
 	max-height: 7.6rem;
+}
+
+div.cart_content li.product_card > div.product_details {
+  grid-area: details;
 }
 
 li.product_card > div.product_details p.product_title {
@@ -392,18 +432,28 @@ li.product_card > div.product_details p.product_description {
 	height: 2.5rem;
 }
 
+div.buttons * {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 li.product_card > div.buttons,
-div.product_container > div.operation_card > div.buttons {
+div.operation_card > div.buttons
+{
 	margin: 18px 0px 8px 0px;
 }
 
-li.product_card > div.buttons > form > button.cart,
-div.operation_card button.cart {
+div.cart_content li.product_card > div.buttons {
+  grid-area: buttons;
+  display: flex;
+  align-items: flex-start;
+}
+
+button.cart {
 	border-color: var(--cart_base_color);
 }
 
-li.product_card > div.buttons > form > button.cart:hover,
-div.operation_card button.cart:hover {
+button.cart:hover {
 	background-color: var(--cart_hover_color);
 }
 
@@ -416,7 +466,7 @@ div.product_container {
   grid-template-columns: max(35%) 1fr 0.5fr;
 }
 
-div.product_container div.image_box {
+div.image_box {
 	margin: 0px 12px 0px 0px;
   grid-area: image;
 }
@@ -445,3 +495,28 @@ div.product_details > h2 {
 div.product_details p.product_price {
 	font-size: 1.4rem;
 }
+
+div.cart_content div.options {
+  background-color: var(--base_bg_color);
+  width: 100%;
+}
+
+div.cart_content div.options_container {
+    padding: 8px;
+}
+
+div.cart_content div.options > * {
+	width: 80%;
+	margin: 8px auto;
+}
+
+div.cart_content div.options > form > * {
+	width: 100%;
+  margin: 4px auto;
+}
+
+div.cart_content div.options h3,
+div.cart_content div.options h4 {
+  padding-top: 12px;
+}
+

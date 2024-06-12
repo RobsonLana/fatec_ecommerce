@@ -6,4 +6,17 @@ function list_clients($connection) {
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function get_client_address($connection, $client) {
+    $statement = $connection->prepare(
+        "select * from cliente"
+        . " where cpf_cnpj_cli = :client"
+    );
+
+    $statement->bindValue(':client', $client, PDO::PARAM_STR);
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
