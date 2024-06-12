@@ -38,7 +38,7 @@
         <?php
             if ($_SESSION['cart']['count'] > 0) {
         ?>
-        <div class="cart_content">
+        <div class="vertical_content">
             <div class="products_container">
                 <ul class="product_list">
         <?php

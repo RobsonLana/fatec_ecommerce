@@ -27,6 +27,9 @@ function header_user_block($user_name, $user) {
         . '<p class="user_name"><b>' . $user_name . '</b></p>'
         . '<p class="user_cpf_cnpj"><b>' . $user . '</b></p>'
         . '</div>'
+        . '<form method="GET" action="orders.php">'
+        . '<button>Pedidos</button>'
+        . '</form>'
         . '<form method="GET" action="user_select.php">'
         . '<button>Deslogar</button>'
         . '</form>';

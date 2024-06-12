@@ -55,7 +55,7 @@
         <?=header_bar($product_name, 'admin', $referer_url)?>
         <div class="product_container">
             <div class="image_box">
-                <img src="../files/pictures/<?=$product['nome_arquivo']?>" alt="<?=$product['nome_pro']?>">
+                <img src="<?=$product['nome_arquivo'] ? "../files/pictures/" . $product['nome_arquivo'] : '../assets/cube-alt-2-svgrepo-com.svg'?>" alt="<?=$product['nome_pro']?>">
             </div>
 
             <div class="product_details">

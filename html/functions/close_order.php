@@ -29,5 +29,5 @@
         "subtotal" => 0.0
     ];
 
-    header("location:../page/index.php");
+    header("location:../page/order_details.php?order_id=" . $order_id);
 ?>
