@@ -38,6 +38,20 @@ function register_item_order($connection, $order_id, $product_id, $item) {
     return $order_id;
 }
 
+function list_orders($connection) {
+    $statement = $connection->prepare(
+        "select numero_compra, data, valor_transporte, compra.cpf_cnpj_cli, cpf_cnpj_trans, valor_total, total_itens, sub_total,"
+        . " cliente.nome_cli"
+        . " from compra"
+        . " left join cliente on compra.cpf_cnpj_cli = cliente.cpf_cnpj_cli"
+        . " order by numero_compra desc"
+    );
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function list_client_orders($connection, $client) {
     $statement = $connection->prepare("select * from compra where cpf_cnpj_cli = :client order by numero_compra desc");
 

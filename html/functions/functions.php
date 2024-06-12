@@ -36,7 +36,10 @@ function header_user_block($user_name, $user) {
 }
 
 function header_admin_block() {
-    return '<form method="GET" action="../page/index.php">'
+    return '<form method="GET" action="orders.php">'
+        . '<button>Pedidos</button>'
+        . '</form>'
+        . '<form method="GET" action="../page/index.php">'
         . '<button>Sair para página do usuário</button>'
         . '</form>';
 }
