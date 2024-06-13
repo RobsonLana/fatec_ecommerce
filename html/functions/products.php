@@ -192,4 +192,18 @@ function update_product($connection, $product_id, $name, $description, $price, $
 
     return $product_id;
 }
+
+function update_product_quantity($connection, $product_id, $quantity) {
+    $statement = $connection->prepare(
+        'update produto set quantidade = quantidade + :quantity'
+        . ' where codigo_prod = :product_id;'
+    );
+
+    $statement->bindValue(":product_id", $product_id, PDO::PARAM_STR);
+    $statement->bindValue(":quantity", $quantity, PDO::PARAM_INT);
+
+    $statement->execute();
+
+    return $product_id;
+}
 ?>

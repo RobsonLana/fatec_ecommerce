@@ -4,6 +4,7 @@
     include_once('../functions/functions.php');
     include_once('../functions/freights.php');
     include_once('../functions/orders.php');
+    include_once('../functions/products.php');
 
     $connection = connect();
 
@@ -21,6 +22,8 @@
 
     foreach($items as $product_id => $item) {
         register_item_order($connection, $order_id, $product_id, $item);
+
+        update_product_quantity($connection, $product_id, $item['quantity'] * -1);
     }
 
     $_SESSION['cart'] = [
